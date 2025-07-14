@@ -1,0 +1,10 @@
+streamlit
+pandas
+matplotlib
+seaborn
+vaderSentiment
+transformers
+tensorflow
+torch
+google-api-python-client
+numpy
