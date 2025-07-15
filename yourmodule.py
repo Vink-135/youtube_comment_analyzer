@@ -7,9 +7,8 @@ from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 import tensorflow as tf
 import numpy as np
 
-# -------------------------
-# PHASE 2: YouTube Comments
-# -------------------------
+
+
 
 def extract_video_id(url):
     match = re.search(r"v=([a-zA-Z0-9_-]+)", url)
@@ -43,9 +42,7 @@ def get_comments(video_id, api_key, max_comments=100):
 
     return comments[:max_comments]
 
-# -------------------------
-# PHASE 3: Sentiment (VADER)
-# -------------------------
+
 
 analyzer = SentimentIntensityAnalyzer()
 
@@ -59,9 +56,7 @@ def classify_sentiment(text):
     else:
         return 'Neutral'
 
-# -------------------------
-# PHASE 4: Toxicity (TensorFlow)
-# -------------------------
+
 
 tox_tokenizer = AutoTokenizer.from_pretrained("unitary/toxic-bert")
 tox_model = TFAutoModelForSequenceClassification.from_pretrained("unitary/toxic-bert", from_pt=True)
@@ -72,9 +67,7 @@ def classify_toxicity_tf(text):
     probs = tf.nn.softmax(logits, axis=1).numpy()[0]
     return "Toxic" if probs[1] > 0.5 else "Non-Toxic"
 
-# -------------------------
-# PHASE 5: Emotion (GoEmotions)
-# -------------------------
+
 
 emotion_labels = [
     'admiration', 'amusement', 'anger', 'annoyance', 'approval', 'caring', 'confusion', 'curiosity',
